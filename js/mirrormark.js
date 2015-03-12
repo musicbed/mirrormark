@@ -31,7 +31,9 @@
             this.registerKeyMaps(this.keyMaps);
             this.cm = CodeMirror.fromTextArea(this.element, this.options);
 
-            if (this.options.showToolbar) this.setToolbar();
+            if (this.options.showToolbar) {
+              this.setToolbar();
+            }
         },
 
         /**
@@ -39,27 +41,16 @@
          */
         setToolbar: function setToolbar() {
 
-            var tools = [
-                { name: "bold", action: this.actions.bold, icon: "bold" },
-                { name: "italicize", action: this.actions.italicize, icon: "italic" },
-                { name: "blockquote", action: this.actions.blockquote, icon: "quote-left" },
-                { name: "link", action: this.actions.link, icon: "link" },
-                { name: "image", action: this.actions.image, icon: "image" },
-                { name: "unorderedList", action: this.actions.unorderedList, icon: "list" },
-                { name: "orderedList", action: this.actions.orderedList, icon: "list-ol" },
-                { name: "threeUp", action: this.actions.threeUp, icon: "fighter-jet" }
-            ];
-
             var toolbar = document.createElement('div');
                 toolbar.className = this.options.theme + '-' + 'toolbar';
 
             // @TODO - change this prefix thing to be less coupled to Font Awesome. Needs to be able to switch out to different icon libraries.
-            tools.forEach(function(tool) {
+            this.tools.forEach(function(tool) {
                 var item = document.createElement("a"); 
                     item.className = 'fa ' + 'fa-' + tool.icon;
                     item.onclick = function(e) {
                       this.cm.focus();
-                      this.actions[tool.name].call(this);
+                      this.actions[tool.action].call(this);
                     }.bind(this);
 
                 toolbar.appendChild(item);
@@ -76,7 +67,7 @@
          */
         registerKeyMaps: function registerKeyMaps(keyMaps) {
             for (name in keyMaps) {
-                if (typeof(this.actions[keyMaps[name]]) !== 'function') throw "MirrorMark - '" + keyMaps[name] + "' is not a registered actions";
+                if (typeof(this.actions[keyMaps[name]]) !== 'function') throw "MirrorMark - '" + keyMaps[name] + "' is not a registered action";
 
                 var obj = {};
                 obj[name] = this.actions[keyMaps[name]].bind(this);
@@ -86,12 +77,38 @@
 
 
         /**
-         * Register actions by extending default actions
+         * Register actions by extending the default actions
          * @param  {Object} actions [description]
          */
         registerActions: function registerActions(actions) {
             return _.assign(this.actions, actions);
         },
+
+
+        /**
+         * Register tools by extending the default tools
+         * @param  {Array} tools
+         */
+        registerTools: function registerTools(tools) {
+            for (var action in tools) {
+                if (typeof(this.actions[tools[action].action]) !== 'function') throw "MirrorMark - '" + tools[action].action + "' is not a registered action";
+            }
+
+            this.tools = this.tools.concat(tools)
+        },
+        
+        /**
+         * Default Toolbar
+         */
+        tools: [
+          { name: "bold", action: "bold", icon: "bold" },
+          { name: "italicize", action: "italicize", icon: "italic" },
+          { name: "blockquote", action: "blockquote", icon: "quote-left" },
+          { name: "link", action: "link", icon: "link" },
+          { name: "image", action: "image", icon: "image" },
+          { name: "unorderedList", action: "unorderedList", icon: "list" },
+          { name: "orderedList", action: "orderedList", icon: "list-ol" },
+        ],
 
         /**
          * Default Keymaps 

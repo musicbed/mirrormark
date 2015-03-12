@@ -76,11 +76,11 @@ We even have images (Cmd-Alt-I)
 
 <script>
 	/*
-	 * Setup some custom actions and keymaps
+	 * Setup custom actions, keymaps, and tools.
 	 */
 	var customActions = {
 		// Inserts three images wrapped in a <div>
-		"threeUp": function () {
+		"threeUp": function threeUp() {
 			var html = [];
 			html.push("<div class='threeUp'>");
 			html.push("	<img src='' />");
@@ -92,16 +92,17 @@ We even have images (Cmd-Alt-I)
 		}
 	}
 
-	var customKeyMaps = {
-		"Shift-Cmd-Alt-3": "threeUp"
-	}
+	var customKeyMaps = { "Shift-Cmd-Alt-3": "threeUp" };
+	var customTools = [{ name: "threeUp", action: "threeUp", icon: "fighter-jet" }];
+
 
 	textarea1 = mirrorMark(document.getElementById("textarea1"), { autofocus: true, showToolbar: true });
 	textarea1.registerActions(customActions);
 	textarea1.registerKeyMaps(customKeyMaps);
+	textarea1.registerTools(customTools);
 	textarea1.render();
 
-	textarea2 = mirrorMark(document.getElementById("textarea2"));
+	textarea2 = mirrorMark(document.getElementById("textarea2"), { autofocus: true, showToolbar: true });
 	textarea2.render();
 </script>
 </body>
