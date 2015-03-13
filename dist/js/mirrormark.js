@@ -32,29 +32,23 @@
             this.cm = CodeMirror.fromTextArea(this.element, this.options);
 
             if (this.options.showToolbar) {
-              this.setToolbar();
+              this.setToolbar(this.tools);
             }
         },
 
         /**
          * Setup the toolbar
          */
-        setToolbar: function setToolbar() {
+        setToolbar: function setToolbar(tools) {
 
-            var toolbar = document.createElement('div');
+            var toolbar = document.createElement('ul');
                 toolbar.className = this.options.theme + '-' + 'toolbar';
+            
+            var tools = this.generateToolList(tools);
 
-            // @TODO - change this prefix thing to be less coupled to Font Awesome. Needs to be able to switch out to different icon libraries.
-            this.tools.forEach(function(tool) {
-                var item = document.createElement("a"); 
-                    item.className = tool.className;
-                    item.onclick = function(e) {
-                      this.cm.focus();
-                      this.actions[tool.action].call(this);
-                    }.bind(this);
-
-                toolbar.appendChild(item);
-            }.bind(this));
+            tools.forEach(function(tool) {
+                toolbar.appendChild(tool)
+            });
     
             var cmWrapper = this.cm.getWrapperElement();
                 cmWrapper.parentNode.insertBefore(toolbar, cmWrapper);
@@ -88,13 +82,63 @@
         /**
          * Register tools by extending and overwriting the default tools
          * @param  {Array} tools
+         * @param  {Bool} replace - replace the default tools with the ones provided. Defaults to false.
          */
-        registerTools: function registerTools(tools) {
+        registerTools: function registerTools(tools, replace) {
             for (var action in tools) {
-                if (typeof(this.actions[tools[action].action]) !== 'function') throw "MirrorMark - '" + tools[action].action + "' is not a registered action";
+                if (this.actions[tools[action].action] && typeof(this.actions[tools[action].action]) !== 'function') throw "MirrorMark - '" + tools[action].action + "' is not a registered action";
+            }
+
+            if (replace) { 
+                this.tools = tools;
+                return;
             }
 
             this.tools = this.tools.concat(tools)
+        },
+
+        /**
+         * A recursive function to generate and return an unordered list of tools
+         * @param  {Object}
+         */
+        generateToolList: function generateToolList(tools) {
+            return tools.map(function(tool) {
+                var item = document.createElement("li"), 
+                    anchor = document.createElement("a");
+
+                if (tool.className) {
+                    anchor.className = tool.className;
+                }
+
+                if (tool.showName) {
+                    var text = document.createTextNode(tool.name);
+                    anchor.appendChild(text);
+                }
+
+                if (tool.action) {
+                    anchor.onclick = function(e) {
+                      this.cm.focus();
+                      this.actions[tool.action].call(this);
+                    }.bind(this);
+                }
+
+                item.appendChild(anchor);
+
+                if (tool.nested) {
+                    item.className = "has-nested";
+                    var ul = document.createElement('ul');
+                        ul.className = "mirrormark-toolbar-list"
+                    var nested = generateToolList.call(this, tool.nested);
+                        nested.forEach(function(nestedItem) {
+                            ul.appendChild(nestedItem);
+                        });
+
+                    item.appendChild(ul);
+                }
+
+                return item
+
+            }.bind(this));
         },
         
         /**

@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>MirrorMark - Simple, but extensible. A work in progress.</title>
+	<title>MirrorMark - Simple, yet extensible.</title>
 	<!-- Reset and custom fonts -->
-	<link href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' rel="stylesheet" type="text/css">
-	<link href='http://fonts.googleapis.com/css?family=Merriweather' rel="stylesheet" type="text/css">
-
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="./css/mirrormark.package.min.css" rel="stylesheet" />
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+	
+	<!-- These three are required -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/codemirror.css" rel="stylesheet" />
+	<link href="./css/mirrormark.css" rel="stylesheet" />
 	
 	<!-- Our demo CSS -->
-	<link href="./css/demo.min.css" rel="stylesheet" type="text/css" />
+	<link href="./css/demo.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -65,7 +67,12 @@ We even have images (Cmd-Alt-I)
 	MirrorMark built by <a href="http://www.twitter.com/andrewdelprete" class="btn" style="margin-left: .5%; margin-right: .5%;">Andrew Del Prete</a> at <a href="http://www.musicbed.com" class="btn" style="margin-left: .5%">Musicbed, LLC.</a>
 </div>
 
-<script src="./js/mirrormark.package.min.js"></script>
+<!-- These are all required -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/addon/edit/continuelist.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.0.0/mode/markdown/markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+<script src="./js/mirrormark.js"></script>
 
 <script>
 	/*
@@ -82,10 +89,41 @@ We even have images (Cmd-Alt-I)
 			html.push("</div>");
 
 			this.insert(html);
+		},
+		"fourUp": function fourUp() {
+			var html = [];
+			html.push("<div class='fourUp'>");
+			html.push("	<img src='' />");
+			html.push("	<img src='' />");
+			html.push("	<img src='' />");
+			html.push("	<img src='' />");
+			html.push("</div>");
+
+			this.insert(html);
 		}
 	}
-	var customKeyMaps = { "Shift-Cmd-Alt-3": "threeUp" };
-	var customTools = [{ name: "threeUp", action: "threeUp", className: "fa fa-fighter-jet" }];
+
+	var customKeyMaps = { 
+		"Shift-Cmd-Alt-3": "threeUp",
+		"Shift-Cmd-Alt-4": "fourUp",
+	};
+	
+	var customTools = [{ 
+		name: "threeUp", 
+		action: null, 
+		className: "fa fa-fighter-jet", 
+		nested: [{ 
+			name: "threeUp", 
+			action: "threeUp", 
+			showName: true
+		},
+		{
+			name: "fourUp", 
+			action: "fourUp", 
+			showName: true
+		}
+		]
+	}];
 
 
 	textarea1 = mirrorMark(document.getElementById("textarea1"), { autofocus: true, showToolbar: true });
@@ -94,7 +132,7 @@ We even have images (Cmd-Alt-I)
 	textarea1.registerTools(customTools);
 	textarea1.render();
 
-	textarea2 = mirrorMark(document.getElementById("textarea2"), { autofocus: true, showToolbar: true });
+	textarea2 = mirrorMark(document.getElementById("textarea2"), { showToolbar: true });
 	textarea2.render();
 </script>
 </body>

@@ -89,11 +89,41 @@ We even have images (Cmd-Alt-I)
 			html.push("</div>");
 
 			this.insert(html);
+		},
+		"fourUp": function fourUp() {
+			var html = [];
+			html.push("<div class='fourUp'>");
+			html.push("	<img src='' />");
+			html.push("	<img src='' />");
+			html.push("	<img src='' />");
+			html.push("	<img src='' />");
+			html.push("</div>");
+
+			this.insert(html);
 		}
 	}
 
-	var customKeyMaps = { "Shift-Cmd-Alt-3": "threeUp" };
-	var customTools = [{ name: "threeUp", action: "threeUp", className: "fa fa-fighter-jet" }];
+	var customKeyMaps = { 
+		"Shift-Cmd-Alt-3": "threeUp",
+		"Shift-Cmd-Alt-4": "fourUp",
+	};
+	
+	var customTools = [{ 
+		name: "threeUp", 
+		action: null, 
+		className: "fa fa-fighter-jet", 
+		nested: [{ 
+			name: "threeUp", 
+			action: "threeUp", 
+			showName: true
+		},
+		{
+			name: "fourUp", 
+			action: "fourUp", 
+			showName: true
+		}
+		]
+	}];
 
 
 	textarea1 = mirrorMark(document.getElementById("textarea1"), { autofocus: true, showToolbar: true });
