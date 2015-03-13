@@ -32,8 +32,8 @@ h2 {
 	padding: .5rem .75rem;
 	background: #222222;
 	color: white;
-	transition: all .2s linear;	
-}		
+	transition: all .2s linear;
+}
 
 .btn:hover {
 	padding: .5rem 1rem;
@@ -52,24 +52,3 @@ h2 {
 	max-width: 66%;
 	margin: auto;
 }
-
-/* 
- * Code Mirror Overwrite 
- */
-
-/* Auto resizing of editor */
-.CodeMirror-scroll { 
-	height: auto !important; 
-	overflow: visible !important; 
-}
-
-/* Basic editor theming to the .CodeMirror container */
-.CodeMirror {
-	box-sizing: border-box;
-	height: auto;
-	margin: auto;
-	padding: 1.5%;
-	position: relative;
-	z-index: 0
-}
-
