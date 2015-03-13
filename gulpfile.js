@@ -30,7 +30,7 @@ gulp.task('copyFiles', function() {
 gulp.task('packagecss', function() {
     return gulp.src([ 
             BOWER + 'codemirror/lib/codemirror.css',
-    		SRC + 'css/mirrormark.css',
+    		SRC + 'css/mirrormark.css'
     	])
     	.pipe(concat('mirrormark.package.css'))
         .pipe(gulp.dest(DIST + 'css'));
@@ -39,6 +39,7 @@ gulp.task('packagecss', function() {
 gulp.task('packagejs', function() {
     return gulp.src([ 
             BOWER + 'codemirror/lib/codemirror.js',
+            BOWER + 'codemirror/mode/markdown/markdown.js',
             BOWER + 'codemirror/mode/edit/continuelist.js',
             BOWER + 'lodash/lodash.js',
             SRC + 'js/mirrormark.js'
@@ -49,7 +50,12 @@ gulp.task('packagejs', function() {
 
 
 gulp.task('minifycss', function() {
-    return gulp.src(DIST + 'css/*.css')
+    return gulp.src([ 
+            DIST + 'css/demo.css',
+            DIST + 'css/codemirror.css',
+            DIST + 'css/mirrormark.css',
+            DIST + 'css/mirrormark.package.css'
+        ])
     	.pipe(minifycss())
     	.pipe(rename({
     		suffix: '.min'
