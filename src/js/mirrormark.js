@@ -88,10 +88,16 @@
         /**
          * Register tools by extending and overwriting the default tools
          * @param  {Array} tools
+         * @param  {Bool} replace - replace the default tools with the ones provided. Defaults to false.
          */
-        registerTools: function registerTools(tools) {
+        registerTools: function registerTools(tools, replace) {
             for (var action in tools) {
                 if (typeof(this.actions[tools[action].action]) !== 'function') throw "MirrorMark - '" + tools[action].action + "' is not a registered action";
+            }
+
+            if (replace) { 
+                this.tools = tools;
+                return;
             }
 
             this.tools = this.tools.concat(tools)

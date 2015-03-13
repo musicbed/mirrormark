@@ -48,7 +48,6 @@ gulp.task('packagejs', function() {
         .pipe(gulp.dest(DIST + 'js'));
     });
 
-
 gulp.task('minifycss', function() {
     return gulp.src([ 
             DIST + 'css/demo.css',
