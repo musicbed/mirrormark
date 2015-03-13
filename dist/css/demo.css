@@ -53,7 +53,17 @@ h2 {
 	margin: auto;
 }
 
-/* Code Mirror Overwrited */
+/* 
+ * Code Mirror Overwrite 
+ */
+
+/* Auto resizing of editor */
+.CodeMirror-scroll { 
+	height: auto !important; 
+	overflow: visible !important; 
+}
+
+/* Basic editor theming to the .CodeMirror container */
 .CodeMirror {
 	border: 1px #888 solid;
 	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
@@ -62,3 +72,4 @@ h2 {
 	margin: auto;
 	padding: 1.5%;
 }
+

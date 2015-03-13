@@ -47,7 +47,7 @@
             // @TODO - change this prefix thing to be less coupled to Font Awesome. Needs to be able to switch out to different icon libraries.
             this.tools.forEach(function(tool) {
                 var item = document.createElement("a"); 
-                    item.className = 'fa ' + 'fa-' + tool.icon;
+                    item.className = tool.className;
                     item.onclick = function(e) {
                       this.cm.focus();
                       this.actions[tool.action].call(this);
@@ -86,7 +86,7 @@
 
 
         /**
-         * Register tools by extending the default tools
+         * Register tools by extending and overwriting the default tools
          * @param  {Array} tools
          */
         registerTools: function registerTools(tools) {
@@ -98,16 +98,17 @@
         },
         
         /**
-         * Default Toolbar
+         * Default Tools in Toolbar
+         * @todo - update so it's not so tightly coupled with Font Awesome.
          */
         tools: [
-          { name: "bold", action: "bold", icon: "bold" },
-          { name: "italicize", action: "italicize", icon: "italic" },
-          { name: "blockquote", action: "blockquote", icon: "quote-left" },
-          { name: "link", action: "link", icon: "link" },
-          { name: "image", action: "image", icon: "image" },
-          { name: "unorderedList", action: "unorderedList", icon: "list" },
-          { name: "orderedList", action: "orderedList", icon: "list-ol" },
+          { name: "bold", action: "bold", className: "fa fa-bold" },
+          { name: "italicize", action: "italicize", className: "fa fa-italic" },
+          { name: "blockquote", action: "blockquote", className: "fa fa-quote-left" },
+          { name: "link", action: "link", className: "fa fa-link" },
+          { name: "image", action: "image", className: "fa fa-image" },
+          { name: "unorderedList", action: "unorderedList", className: "fa fa-list" },
+          { name: "orderedList", action: "orderedList", className: "fa fa-list-ol" },
         ],
 
         /**

@@ -1,11 +1,5 @@
 
-/* used for auto resizing of editor */
-.CodeMirror-scroll { 
-	height: auto !important; 
-	overflow: visible !important; 
-}
-
-/* Editor Theme */
+/* Custom 'mirrormark' CodeMirror Theme */
 .cm-s-mirrormark {
   font: 16px/1.62 'Helvetica Neue', sans-serif;
 }
