@@ -114,12 +114,12 @@ textarea2.render();
 ```
 
 ## Options
-When instantiating the editor you can pass the various Codemirror options available. There is also an option to opt to show toolbar ``` showToolbar: true ``` (Default: false).
+When instantiating the editor you can pass the various Codemirror options available. There is also an option to opt to show toolbar ``` showToolbar: true ``` (Default: false) and the option to change the theme ``` theme: name ```.
 
 ## Custom Methods
 * ***registerActions(actions)*** - Accepts an object with an Action name as the key and an anonymous function for the value.
 * ***registerKeymaps(keymaps)*** - Accepts an object with Keymap name as the key and an anonymous function for the value.
-* ***RegisterToolbar(tools, replace)*** - Accepts an array of custom tool objects with the option of replacing (default: false) the existing toolbar.
+* ***RegisterTools(tools, replace)*** - Accepts an array of custom tool objects with the option of replacing (default: false) the existing toolbar.
 
 ## Insertion Methods
 * ***this.insert(string)*** - Inserts a string at the current cursor position
