@@ -106,7 +106,7 @@ var customTools = [{
 	]
 }];
 
-textarea2 = mirrorMark(document.getElementById("textarea1"), { autofocus: true, showToolbar: true });
+textarea2 = mirrorMark(document.getElementById("textarea2"), { autofocus: true, showToolbar: true });
 textarea2.registerActions(customActions);
 textarea2.registerKeyMaps(customKeyMaps);
 textarea2.registerTools(customTools);
