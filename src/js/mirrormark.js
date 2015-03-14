@@ -127,7 +127,7 @@
                 if (tool.nested) {
                     item.className = "has-nested";
                     var ul = document.createElement('ul');
-                        ul.className = "mirrormark-toolbar-list"
+                        ul.className = this.options.theme + "-toolbar-list"
                     var nested = generateToolList.call(this, tool.nested);
                         nested.forEach(function(nestedItem) {
                             ul.appendChild(nestedItem);
