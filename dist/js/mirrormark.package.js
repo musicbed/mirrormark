@@ -21072,7 +21072,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
          * @param {Object} keyMaps
          */
         registerKeyMaps: function registerKeyMaps(keyMaps) {
-            for (name in keyMaps) {
+            for (var name in keyMaps) {
                 if (typeof(this.actions[keyMaps[name]]) !== 'function') throw "MirrorMark - '" + keyMaps[name] + "' is not a registered action";
 
                 var obj = {};
@@ -21255,11 +21255,11 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
             var cursor = doc.getCursor();
 
             if (doc.somethingSelected()) {
-                selections = doc.listSelections();
+                var selections = doc.listSelections();
                 selections.forEach(function(selection) {
                     var pos = [selection.head.line, selection.anchor.line].sort();
 
-                    for (i = pos[0]; i <= pos[1]; i++) {
+                    for (var i = pos[0]; i <= pos[1]; i++) {
                         doc.replaceRange(insertion, { line: i, ch: 0 });
                     }
 
