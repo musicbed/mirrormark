@@ -319,6 +319,11 @@ div.CodeMirror-cursors {
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
 
+:-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+ 
 /* Custom 'mirrormark' CodeMirror Theme */
 .cm-s-mirrormark {
   font: 16px/1.7 Menlo, Consolas, Monaco, 'Andale Mono', monospace;
@@ -358,7 +363,6 @@ span.CodeMirror-selectedtext { background: none; }
 }
 
 /* Toolbar Theme */
-/* @TODO - Make flexbox? that could be cool */
 .mirrormark-toolbar {
 	background: #fff;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -372,9 +376,13 @@ span.CodeMirror-selectedtext { background: none; }
 
 /* First level */
 .mirrormark-toolbar li {
-	display: inline-block;
-	position: relative;
-	z-index: 1
+    display: inline-block;
+    position: relative;
+    z-index: 1
+}
+
+.mirrormark-toolbar li.fullScreen {
+    float: right;
 }
 
 .mirrormark-toolbar li a {

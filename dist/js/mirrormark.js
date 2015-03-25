@@ -106,6 +106,8 @@
                 var item = document.createElement("li"), 
                     anchor = document.createElement("a");
 
+                item.className = tool.name;
+
                 if (tool.className) {
                     anchor.className = tool.className;
                 }
@@ -125,7 +127,7 @@
                 item.appendChild(anchor);
 
                 if (tool.nested) {
-                    item.className = "has-nested";
+                    item.className += " has-nested";
                     var ul = document.createElement('ul');
                         ul.className = this.options.theme + "-toolbar-list"
                     var nested = generateToolList.call(this, tool.nested);
@@ -153,6 +155,7 @@
           { name: "image", action: "image", className: "fa fa-image" },
           { name: "unorderedList", action: "unorderedList", className: "fa fa-list" },
           { name: "orderedList", action: "orderedList", className: "fa fa-list-ol" },
+          { name: "fullScreen", action: "fullScreen", className: "fa fa-expand" },
         ],
 
         /**
@@ -201,6 +204,38 @@
             },
             "hr": function () {                     
                 this.insert('---');
+            },
+            "fullScreen": function () {
+              var el = this.cm.getWrapperElement();
+
+              // https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode
+              var doc = document;
+              var isFull = doc.fullScreen || doc.mozFullScreen || doc.webkitFullScreen;
+              var request = function() {
+                if (el.requestFullscreen) {
+                    el.requestFullscreen();
+                } else if (el.webkitRequestFullscreen) {
+                    el.webkitRequestFullscreen();
+                } else if (el.mozRequestFullScreen) {
+                    el.mozRequestFullScreen();
+                } else if (el.msRequestFullscreen) {
+                    el.msRequestFullscreen();
+                }
+              }         
+              var cancel = function() {
+                if (doc.cancelFullScreen) {
+                  doc.cancelFullScreen();
+                } else if (doc.mozCancelFullScreen) {
+                  doc.mozCancelFullScreen();
+                } else if (doc.webkitCancelFullScreen) {
+                  doc.webkitCancelFullScreen();
+                }
+              };
+              if (!isFull) {
+                request();
+              } else if (cancel) {
+                cancel();
+              }
             }
         },
 
