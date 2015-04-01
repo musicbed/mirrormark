@@ -1,15 +1,9 @@
-:-webkit-full-screen {
-  width: 100% !important;
-  height: 100% !important;
-}
- 
 /* Custom 'mirrormark' CodeMirror Theme */
 .cm-s-mirrormark {
   font: 16px/1.7 Menlo, Consolas, Monaco, 'Andale Mono', monospace;
   box-sizing: border-box;
   height: auto;
   margin: auto;
-  padding: 4%;
   position: relative;
   z-index: 0
 }
@@ -17,6 +11,8 @@
 .cm-s-mirrormark .CodeMirror-scroll {
     height: auto !important;
     overflow: visible !important;
+	padding: 4%;
+	box-sizing: border-box;
 }
 
 .cm-s-mirrormark .cm-header-1 {
@@ -125,4 +121,20 @@
 
 .mirrormark-toolbar ul li:hover a {
 	color: black !important;
+}
+
+/* Fullscreen Mode */
+:-webkit-full-screen {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+:-moz-full-screen .CodeMirror-scroll {
+	height: 100% !important;
+	overflow: scroll !important;
+}
+
+:-webkit-full-screen .CodeMirror-scroll {
+	height: 100% !important;
+	overflow: scroll !important;
 }
