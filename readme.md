@@ -2,7 +2,7 @@
 
 MirrorMark is a simple, yet extensible Markdown editor created with [Codemirror](http://www.codemirror.net). 
 
-See [Demo](http://themusicbed.github.io/MirrorMark/).
+See [Demo](http://musicbed.github.io/MirrorMark/).
 
 ## Install
 
