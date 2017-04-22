@@ -1,6 +1,6 @@
 ## Overview
 
-MirrorMark is a simple, yet extensible Markdown editor created with [Codemirror](http://www.codemirror.net). 
+MirrorMark is a simple, yet extensible Markdown editor created with [Codemirror](http://codemirror.net).
 
 See [Demo](http://musicbed.github.io/MirrorMark/).
 
